@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+<title>{% block title %}Tensor Edits{% endblock %}</title>
+{% block content %}
+
+             <div class="flex-dashboard">
+
+            <!-- Controls Stack Left -->
+            <div class="controls-panel">
+
+                <!-- NEW SECTION: LOCAL IMAGE SOURCE UPLOADER -->
+                <div class="control-section" style="border: 1px solid #38bdf8;">
+                    <h3>0. Load Local Image File</h3>
+                    <input type="file" id="imageSourceInput" class="upload-input" accept="image/jpeg, image/png">
+                    <div style="font-size: 11px; margin-top: 5px; color: #94a3b8;">Select a JPEG/PNG to see it transform instantly into 3D geometry!</div>
+                </div>
+
+                <div class="control-section">
+                    <h3>1. Spatial Rotations</h3>
+                    <div class="slider-group">
+                        <label>Mesh Tilt (X): <span id="valX">30</span>°</label>
+                        <input type="range" id="rotateX" min="0" max="360" value="30">
+                    </div>
+                    <div class="slider-group">
+                        <label>Mesh Spin (Y): <span id="valY">45</span>°</label>
+                        <input type="range" id="rotateY" min="0" max="360" value="45">
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>2. Dynamic Lighting Vector</h3>
+                    <div class="slider-group">
+                        <label>Light Source X: <span id="valLX">1.0</span></label>
+                        <input type="range" id="lightX" min="-20" max="20" step="1" value="10">
+                    </div>
+                    <div class="slider-group">
+                        <label>Light Source Y: <span id="valLY">1.0</span></label>
+                        <input type="range" id="lightY" min="-20" max="20" step="1" value="10">
+                    </div>
+                    <div class="slider-group">
+                        <label>Light Source Z: <span id="valLZ">1.0</span></label>
+                        <input type="range" id="lightZ" min="1" max="30" step="1" value="10">
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <h3>3. Operations Pipeline</h3>
+                    <div>Status: <span id="animStatus" style="color: #f59e0b; font-weight:bold;">Idle</span></div>
+                    <div class="btn-group">
+                        <button id="startBtn" class="btn-start">Start Auto-Rotate</button>
+                        <button id="stopBtn" class="btn-stop" disabled>Stop</button>
+                    </div>
+                    <div class="btn-group">
+                        <button id="saveBtn" class="btn-action">Log Matrix Frame</button>
+                        <button id="downloadBtn" class="btn-action" style="background:#8b5cf6;">Export JSON</button>
+                        <button id="uploadTriggerBtn" class="btn-action" style="background:#8b5cf6;">Import JSON</button>
+                        <button id="playFileBtn" class="btn-start" style="background:#d97706;" disabled>Play History File</button>
+                        <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Canvas Viewport Center -->
+            <div class="canvas-panel">
+                <canvas id="displayCanvas" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Automation Frame Memory Log Right -->
+            <div class="history-panel">
+                <h3>Tensor Sequence Array Stack (<span id="savedCount">0</span>)</h3>
+                <ul id="historyList" class="history-list"></ul>
+            </div>
+
+        </div>
+        <script src="{{ url_for('static', filename='js/vector.js') }}"></script>
+{% endblock %}

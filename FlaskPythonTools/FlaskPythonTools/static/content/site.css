@@ -1,0 +1,512 @@
+body {
+    background-color: #f5f5f5;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.container-photo-cube {
+    width:100%;
+    margin: 0px;
+    font-family: 'Segoe UI', sans-serif;
+    display: grid;
+    /* Columns distribution per user specifications */
+    grid-template-columns: 25vw 45vw 20vw; /* Updated: 35% / 35% / 25% Ratio */
+    gap: 10px; /* Updated: 10px Gap Alignment */
+    align-items: start;
+    overflow-x: auto;
+}
+
+/* ================= TOP ENGINE DECK STYLING ================= */
+.top-control-deck {
+    grid-column: 1 / span 3; /* Extends across the entire top width */
+    background: #ffffff; /* Updated: Stark White Panel */
+    padding: 25px;
+    border-radius: 0px;
+    box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.deck-row {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-item {
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #f5f5f5; /* Updated: Soft Light Grey */
+    color: #000000;
+    padding: 6px 12px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #dcdcdc;
+}
+
+/* Play, Pause, Stop Action Buttons */
+.btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.engine-btn {
+    border: none;
+    padding: 8px 16px;
+    border-radius: 0px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.2s, transform 0.1s;
+}
+
+    .engine-btn.play {
+        background: #27ae60;
+    }
+
+        .engine-btn.play:hover {
+            background: #2ecc71;
+        }
+
+    .engine-btn.pause {
+        background: #f39c12;
+    }
+
+        .engine-btn.pause:hover {
+            background: #f1c40f;
+        }
+
+    .engine-btn.stop {
+        background: #c0392b;
+    }
+
+        .engine-btn.stop:hover {
+            background: #e74c3c;
+        }
+
+    .engine-btn:active {
+        transform: scale(0.95);
+    }
+
+/* ================= THE LOWER 3-COLUMN HOUSINGS ================= */
+.column-left, .column-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.column-middle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.panel-card {
+    background: #ffffff; /* Updated: Pure Stark White Panel */
+    padding: 5px;
+    box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e0e0e0;
+}
+
+h3, h4 {
+    margin: 0;
+}
+
+h3 {
+    font-size: 1.1rem;
+    border-bottom: 2px solid #000000; /* High Contrast Separator */
+    padding-bottom: 8px;
+    color: black;
+}
+
+h4 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #555555; /* Neutral Dark Grey Subtitles */
+}
+
+.control-group, .upload-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: #f9f9f9; /* Updated: Off-White Control Wells */
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #eaeaea;
+}
+
+    .control-group label {
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: flex;
+        gap: 8px;
+        color: #1a1a1a;
+    }
+
+.action-btn {
+    display: block;
+    width: 100%;
+    color: #ffffff;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.download-btn {
+    background: #2c3e50;
+    border: 1px solid #1a252f;
+}
+
+    .download-btn:hover {
+        background: #34495e;
+    }
+
+.upload-json-label input {
+    display: none;
+}
+
+.upload-json-label {
+    background: #27ae60;
+}
+
+    .upload-json-label:hover {
+        background: #2ecc71;
+    }
+
+.upload-btn {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 6px;
+    color: #1a1a1a;
+}
+
+    .upload-btn:last-child {
+        border-bottom: none;
+    }
+
+    .upload-btn input {
+        font-size: 0.75rem;
+        color: #555555;
+    }
+
+#canvas-container {
+    width: 100%;
+    height: 380px;
+    border-radius: 0px;
+    box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+    background-color: #000000; /* Stays Black so the 3D Cube is visible */
+    overflow: hidden;
+    border: 2px solid #ffffff; /* Sharp white frame accent */
+}
+
+.telemetry-panel {
+    background: #ffffff; /* Updated: Stark White Panel Container */
+    padding: 15px;
+    border-radius: 0px;
+    box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+    width: 100%;
+    border: 1px solid #e0e0e0;
+}
+
+.log-headers {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 0.75rem;
+    color: #777777;
+    margin-top: 10px;
+    border-bottom: 2px solid #eeeeee;
+    padding-bottom: 5px;
+}
+
+.log-stream {
+    height: 120px;
+    overflow-y: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.log-row {
+    display: flex;
+    justify-content: space-between;
+    color: #0e6251; /* Updated: Dark Emerald Green for ultra readability on white */
+    padding: 2px 0;
+    font-weight: 600;
+}
+
+/* ================= ENGINE STATE STATUS GLOW ILLUMINATION ================= */
+.status-light-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f5f5f5; /* Updated: Clean light grey housing */
+    padding: 6px 14px;
+    border-radius: 6px;
+    border: 1px solid #dcdcdc;
+}
+
+.status-light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.status-text {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-family: monospace;
+    transition: color 0.3s ease;
+}
+
+/* Dynamic State Color Schemes */
+.state-play {
+    background-color: #2ecc71;
+    box-shadow: 0 0 10px #2ecc71;
+}
+
+.text-play {
+    color: #27ae60; /* Darker green text for white backdrop */
+}
+
+.state-pause {
+    background-color: #f1c40f;
+    box-shadow: 0 0 10px #f1c40f;
+}
+
+.text-pause {
+    color: #d68910; /* Darker orange text for white backdrop */
+}
+
+.state-stop {
+    background-color: #e74c3c;
+    box-shadow: 0 0 10px #e74c3c;
+}
+
+.text-stop {
+    color: #b03a2e; /* Darker red text for white backdrop */
+}
+
+.muted, small {
+    color: #687887;
+}
+
+.editor-panel {
+    margin-bottom: 18px;
+}
+
+.image-panel {
+    margin-bottom: 18px;
+}
+
+    .image-panel .panel-heading {
+        margin-bottom: 14px;
+    }
+
+    .image-panel .waveform-chart {
+        margin-bottom: 14px;
+    }
+
+.image-upload-controls {
+    display: flex;
+    align-items: end;
+    gap: 14px;
+    margin-top: 14px;
+}
+
+#image-canvas {
+    display: block;
+    width: 100%;
+    max-height: 336px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #081f37;
+}
+
+.panel-heading {
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.status {
+    background: #e7f4f3;
+    color: #197f7d;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: .82rem;
+    font-weight: 700;
+}
+
+.waveform-chart {
+    display: block;
+}
+
+.y-axis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3px 0;
+    color: #687887;
+    font-size: .75rem;
+    line-height: 1;
+    text-align: right;
+}
+
+.waveform-scroll {
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.time-axis {
+    position: relative;
+    height: 22px;
+    color: #687887;
+    font-size: .75rem;
+    line-height: 1;
+}
+
+.time-tick {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+    .time-tick:first-child {
+        transform: none;
+    }
+
+    .time-tick:last-child {
+        transform: translateX(-100%);
+    }
+
+#waveform {
+    display: block;
+    width: 100%;
+    height: 535px;
+    border-radius: 10px;
+    background: #081f37;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.control {
+    display: grid;
+    gap: 12px;
+}
+
+    .control label {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        font-weight: 700;
+    }
+
+output {
+    color: #197f7d;
+}
+
+input[type=range] {
+    width: 100%;
+    accent-color: #197f7d;
+}
+
+.actions {
+    flex-wrap: wrap;
+}
+
+.break-duration {
+    display: grid;
+    gap: 4px;
+    color: #687887;
+    font-size: .82rem;
+    font-weight: 700;
+}
+
+    .break-duration input {
+        width: 100px;
+        padding: 9px;
+        border: 1px solid #cbd7e1;
+        border-radius: 8px;
+        font: inherit;
+        color: #17212b;
+    }
+
+.error {
+    min-height: 1.4em;
+    margin: 14px 0;
+    color: #b3261e;
+    font-weight: 700;
+}
