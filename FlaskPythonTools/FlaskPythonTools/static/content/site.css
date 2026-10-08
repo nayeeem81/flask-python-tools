@@ -1,20 +1,37 @@
-body {
-    background-color: #f5f5f5;
-    padding-top: 50px;
-    padding-bottom: 20px;
+:root {
+    --header-height: 96px; /* top header two rows combined */
+    --panel-bg: #0b0b0b;
+    --panel-contrast: #121212;
+    --muted-text: #9fb3bd;
+    --accent: #197f7d;
 }
 
-/* Set padding to keep content from hitting the edges */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--panel-bg);
+    color: #e6eef2;
+    overflow: auto; /* allow scrollbars when needed */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* main content area sits below fixed header */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    box-sizing: border-box;
+    padding: 8px 6px; /* reduced side margins per request */
+    padding-top: 24px;
+    min-height: calc(100vh - var(--header-height));
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
+/* inputs kept compact; do not change IDs */
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 320px;
+    color: #e6eef2;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.04);
 }
 
 /* styles for validation helpers */
@@ -47,30 +64,26 @@ input[type="checkbox"].input-validation-error {
 }
 
 .container-photo-cube {
-    width:100%;
-    margin: 0px;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: inherit;
     display: grid;
-    /* Columns distribution per user specifications */
-    grid-template-columns: 25vw 45vw 20vw; /* Updated: 35% / 35% / 25% Ratio */
-    gap: 10px; /* Updated: 10px Gap Alignment */
+    grid-template-columns: 320px 520px 320px; /* first column fixed to 320px, middle larger */
+    gap: 12px;
     align-items: start;
-    overflow-x: auto;
+    height: auto;
+    padding: 12px;
 }
 
 /* ================= TOP ENGINE DECK STYLING ================= */
 .top-control-deck {
-    grid-column: 1 / span 3; /* Extends across the entire top width */
-    background: #ffffff; /* Updated: Stark White Panel */
-    padding: 25px;
-    border-radius: 0px;
-    box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+    grid-column: 1 / span 3;
+    background: var(--panel-contrast);
+    border-radius: 6px;
     display: flex;
     justify-content: flex-start;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
-    flex-wrap: wrap;
-    border-bottom: 2px solid #e0e0e0;
+    padding: 10px;
+    border: 1px solid rgba(255,255,255,0.03);
 }
 
 .deck-row {
@@ -81,14 +94,14 @@ input[type="checkbox"].input-validation-error {
 .toggle-item {
     font-size: 0.9rem;
     cursor: pointer;
-    background: #f5f5f5; /* Updated: Soft Light Grey */
-    color: #000000;
-    padding: 6px 12px;
+    background: transparent;
+    color: var(--muted-text);
+    padding: 6px 10px;
     border-radius: 6px;
     display: flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid #dcdcdc;
+    border: 1px solid rgba(255,255,255,0.02);
 }
 
 /* Play, Pause, Stop Action Buttons */
@@ -145,18 +158,21 @@ input[type="checkbox"].input-validation-error {
 .column-middle {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    align-items: stretch;
+    width: auto;
+    gap: 12px;
 }
 
 .panel-card {
-    background: #ffffff; /* Updated: Pure Stark White Panel */
-    padding: 5px;
-    box-shadow: 0 4px 20px rgba(255,255,255,0.05);
-    width: 100%;
+    background: var(--panel-contrast);
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+h2 {
+    font-size: 20px;
 }
 
 h3, h4 {
@@ -165,9 +181,8 @@ h3, h4 {
 
 h3 {
     font-size: 1.1rem;
-    border-bottom: 2px solid #000000; /* High Contrast Separator */
     padding-bottom: 8px;
-    color: black;
+    color: #e6eef2;
 }
 
 h4 {
@@ -180,11 +195,10 @@ h4 {
 .control-group, .upload-group {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    background: #f9f9f9; /* Updated: Off-White Control Wells */
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #eaeaea;
+    background: transparent;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.02);
 }
 
     .control-group label {
@@ -196,27 +210,27 @@ h4 {
     }
 
 .action-btn {
-    display: block;
-    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: #ffffff;
     border: none;
-    padding: 10px 12px;
+    padding: 8px 12px;
     border-radius: 6px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
-    font-size: 0.8rem;
-    text-align: center;
-    margin-top: 5px;
+    font-size: 0.85rem;
+    background: #111214;
+    border: 1px solid rgba(255,255,255,0.02);
 }
 
 .download-btn {
-    background: #2c3e50;
-    border: 1px solid #1a252f;
+    background: linear-gradient(180deg,#0f0f10,#0b0b0b);
 }
 
-    .download-btn:hover {
-        background: #34495e;
-    }
+.download-btn:hover {
+    background: linear-gradient(180deg,#18191a,#0f0f10);
+}
 
 .upload-json-label input {
     display: none;
@@ -250,22 +264,25 @@ h4 {
     }
 
 #canvas-container {
-    width: 100%;
-    height: 380px;
-    border-radius: 0px;
-    box-shadow: 0 10px 30px rgba(255,255,255,0.1);
-    background-color: #000000; /* Stays Black so the 3D Cube is visible */
+    width: 450px;
+    min-width: 450px;
+    flex: 1 1 auto;
+    min-height: 520px; /* larger middle canvas height */
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    background-color: #000000;
     overflow: hidden;
-    border: 2px solid #ffffff; /* Sharp white frame accent */
+    border: 1px solid rgba(255,255,255,0.03);
 }
 
 .telemetry-panel {
-    background: #ffffff; /* Updated: Stark White Panel Container */
-    padding: 15px;
-    border-radius: 0px;
-    box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+    background: var(--panel-contrast);
+    padding: 12px;
+    border-radius: 6px;
     width: 100%;
-    border: 1px solid #e0e0e0;
+    border: 1px solid rgba(255,255,255,0.02);
+    flex: 0 0 160px; /* keep telemetry smaller under canvas */
+    overflow: auto;
 }
 
 .log-headers {
@@ -281,7 +298,7 @@ h4 {
 
 .log-stream {
     height: 120px;
-    overflow-y: auto;
+    overflow: hidden;
     font-family: 'Courier New', monospace;
     font-size: 0.75rem;
     margin-top: 8px;
@@ -458,8 +475,8 @@ h4 {
 .controls-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    margin-bottom: 18px;
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .control {
@@ -510,3 +527,365 @@ input[type=range] {
     color: #b3261e;
     font-weight: 700;
 }
+
+/* ================= TENSOR EDITOR LAYOUT & CONTROLS ================= */
+.tensor-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.tensor-editor .upload-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.editor-row {
+    display: grid;
+    grid-template-columns: 320px 1fr; /* left column fixed for controls, right for canvas */
+    gap: 20px;
+    align-items: start;
+}
+
+.controls-column {
+    background: var(--panel-contrast);
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,0.02);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.canvas-column {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sliders {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.channel-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.channel-name {
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.channel-inputs {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.channel-inputs input[type="range"] {
+    flex: 1 1 auto;
+}
+
+.channel-number {
+    width: 72px;
+    padding: 6px;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+}
+
+.download-wrap {
+    margin-top: 6px;
+}
+
+.canvas-actions-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+}
+
+.selection-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.update-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.canvas-frame {
+    background: #050506;
+    padding: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.canvas-stage {
+    position: relative;
+    display: inline-block; /* keep canvas natural pixel size but allow scaling */
+}
+
+#tensor-canvas,
+#selection-canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+#selection-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.canvas-topline, .canvas-footline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    color: var(--muted-text);
+    font-size: 0.9rem;
+}
+
+/* ================ Header (layout.html) styling ================ */
+.app-header .navbar {
+    background: linear-gradient(180deg,#070708,#0b0b0b);
+    border: none;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.6);
+}
+
+.app-header .navbar-top {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+}
+
+.app-header .navbar-bottom {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-top: 1px solid rgba(255,255,255,0.02);
+}
+
+.app-header .navbar-brand {
+    color: #e6eef2;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.05rem;
+}
+
+.app-header .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.app-header ul.nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.app-header ul.nav li a {
+    display: inline-block;
+    color: var(--muted-text);
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.app-header ul.nav li a:hover {
+    background: rgba(255,255,255,0.02);
+    color: #ffffff;
+}
+
+.app-header ul.nav li a:active,
+.app-header ul.nav li a.active {
+    background: rgba(255,255,255,0.04);
+    color: #ffffff;
+    transform: translateY(0.5px);
+}
+
+/* ensure second-row buttons are left aligned */
+.app-header .navbar-bottom .nav-left { justify-content: flex-start; }
+
+/* ================ Panels and page layouts for rotatebox / 3dvector / photocube ================ */
+.panel-container {
+    display: grid;
+    grid-template-columns: 320px 1fr 320px;
+    gap: 12px;
+    align-items: start;
+    padding: 12px;
+    height: calc(100vh - var(--header-height) - 24px);
+}
+
+.panel-container .controls-panel,
+.panel-container .history-panel {
+    background: var(--panel-contrast);
+    border: 1px solid rgba(255,255,255,0.02);
+    padding: 12px;
+    border-radius: 6px;
+    height: 100%;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.panel-container .canvas-panel {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    overflow: hidden;
+}
+
+.canvas-panel canvas,
+.canvas-panel #displayCanvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* responsive collapse to a single column, keeping header and no body scroll */
+@media (max-width: 900px) {
+    .panel-container { grid-template-columns: 1fr; grid-auto-rows: min-content; }
+    .container-photo-cube { grid-template-columns: 2fr; height: auto; }
+    .app-header .navbar-bottom { overflow-x: auto; }
+}
+
+/* make the slider controls visually consistent across the site */
+.custom-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px; /* compact height */
+    width: auto; /* full width for consistency */
+    height: auto;
+    white-space: nowrap; /* avoid label wrapping inside button */
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background-color: #0b0b0b; /* royal black / very dark near-black */
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase; /* capital letters requested */
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.08s ease, box-shadow 0.12s ease;
+    flex: 0 0 auto; /* prevent flex items from shrinking/growing unexpectedly */
+    margin-bottom: 6px; /* small vertical spacing when wrapped */
+}
+
+/* preserve existing download-btn color but ensure sizing */
+.download-btn {
+    padding: 8px 12px;
+}
+
+/* Small responsive tweak */
+@media (max-width: 720px) {
+    /* 1. Change from columns to a single column layout */
+    .editor-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        /* 2. Define the row heights: canvas gets 1.5 parts, controls get 1 part */
+        grid-template-rows: 1.5fr 1fr;
+        /* Optional: Ensure the container has a defined height to split */
+        height: 100vh;
+    }
+
+    /* 3. Keep your order as is (Canvas on top, Controls on bottom) */
+    .canvas-column {
+        order: 1;
+    }
+
+    .controls-column {
+        order: 2;
+    }
+}
+
+#selection-canvas {
+    /* fallback safety kept for older rules */
+    box-shadow: none;
+}
+
+/* ================= BUTTON STYLE: COMPACT, UPPERCASE, ROYAL-BLACK THEME ================ */
+/* Apply to editor control buttons only to avoid changing global site buttons */
+.tensor-editor .controls-column .action-btn,
+.tensor-editor .controls-column .custom-btn,
+.tensor-editor .selection-actions button,
+.tensor-editor .selection-actions .action-btn,
+.tensor-editor .download-btn,
+.tensor-editor .upload-json-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px; /* compact height */
+    width: auto; /* full width for consistency */
+    height: auto;
+    white-space: nowrap; /* avoid label wrapping inside button */
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background-color: #0b0b0b; /* royal black / very dark near-black */
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-transform: uppercase; /* capital letters requested */
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.08s ease, box-shadow 0.12s ease;
+    flex: 0 0 auto; /* prevent flex items from shrinking/growing unexpectedly */
+    margin-bottom: 6px; /* small vertical spacing when wrapped */
+}
+
+.tensor-editor .selection-actions {
+    gap: 10px; /* ensure spacing between wrapped items */
+    flex-wrap: wrap; /* allow wrap and avoid overlap */
+}
+
+.tensor-editor .selection-actions button {
+    margin-bottom: 6px; /* small vertical spacing when wrapped */
+}
+
+    .tensor-editor .controls-column .action-btn:hover,
+    .tensor-editor .selection-actions button:hover,
+    .tensor-editor .download-btn:hover, .custom-btn:hover,
+    .tensor-editor .upload-json-label:hover {
+        background-color: #1a1a1a; /* subtle lighter hover */
+    }
+
+.tensor-editor .controls-column .action-btn:active,
+.tensor-editor .selection-actions button:active {
+    transform: scale(0.98);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+.tensor-editor .controls-column .action-btn:focus,
+.tensor-editor .selection-actions button:focus {
+    outline: 3px solid rgba(255,255,255,0.06);
+    outline-offset: 2px;
+}
+

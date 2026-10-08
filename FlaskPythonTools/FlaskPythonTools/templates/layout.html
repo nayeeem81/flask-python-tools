@@ -10,38 +10,45 @@
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/" class="navbar-brand">Application name</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <!-- Left Side Links -->
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">About</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                </ul>
+    <header class="app-header">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-top">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand">Application name</a>
+                    </div>
+                    <div class="nav-right">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ url_for('about') }}">About</a></li>
+                            <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-                <!-- Right Side Links (Your New Menu) -->
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{{ url_for('edit_audio') }}">Audio</a></li>
-                    <li><a href="{{ url_for('edit_image') }}">Image</a></li>
-                    <li><a href="{{ url_for('photocube') }}">Photo 3D</a></li>
-                    <li><a href="{{ url_for('box_rotate') }}">Box 3D</a></li>
-                    <li><a href="{{ url_for('face_rotate') }}">Face 3D</a></li>
-                    <li><a href="{{ url_for('vector') }}">Map 3D</a></li>
-                    <li><a href="{{ url_for('audiowavformfrommic') }}">Recrd  Mic</a></li>
-                </ul>
+                <div class="navbar-bottom">
+                    <div class="nav-left">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{{ url_for('home') }}">Home</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav nav-editor">
+                            <li><a href="{{ url_for('edit_audio') }}">Audio</a></li>
+                            <li><a href="{{ url_for('edit_image') }}">Image</a></li>
+                            <li><a href="{{ url_for('photocube') }}">Photo 3D</a></li>
+                            <li><a href="{{ url_for('box_rotate') }}">Box 3D</a></li>
+                            <li><a href="{{ url_for('face_rotate') }}">Face 3D</a></li>
+                            <li><a href="{{ url_for('vector') }}">Map 3D</a></li>
+                            <li><a href="{{ url_for('audiowavformfrommic') }}">Record Mic</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </header>
 
+    <div class="gap">
+    </div>
+    <div class="gap">
+    </div>
 
     <div class="container body-content">
         {% block content %}{% endblock %}
