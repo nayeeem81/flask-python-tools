@@ -1,150 +1,115 @@
 {% extends "layout.html" %}
-<title>{% block title %}Tensor Edits{% endblock %}</title>
+<title>{% block title %}Audio Editor{% endblock %}</title>
 {% block content %}
-   
+
+<p id="error" class="error" role="alert"></p>
+
+<!-- ================= SECTION 1: File Upload ================= -->
 <div class="panel-container">
-    <p id="error" class="error" role="alert"></p>
-    <div class="waveform-chart">
+    <h2>Upload Audio & Image</h2>
+    <div class="button-container" aria-label="File upload controls">
+        <label for="audio-file" class="custom-btn">
+            Select Audio (.wav, .mp3, .webm, .ogg)
+            <input id="audio-file" type="file" accept=".wav,.mp3,.webm,.weba,.ogg,audio/wav,audio/mpeg,audio/webm,audio/ogg" style="display:none;">
+        </label>
+        <button id="upload-button" class="custom-btn" disabled>Upload Audio</button>
+        <span id="file-name" class="muted"></span>
 
-        <div id="waveform-scroll" class="waveform-scroll">
-
-            <canvas id="waveformCanvas"></canvas>
-
-        </div>
-
+        <label for="image-file" class="custom-btn">
+            Select Image (.png, .jpeg, .webp)
+            <input id="image-file" type="file" accept="image/png,image/jpeg,image/webp" style="display:none;">
+        </label>
+        <button id="image-upload-button" class="custom-btn" disabled>Load Image</button>
     </div>
-
 </div>
 
-<div class="panel-container control">
-
-        <div class="button-container controls-grid">
-            <label for="pitch-brightness-slider">Pitch brightness <output id="pitch-brightness-value">100%</output></label>
+<!-- ================= SECTION 2: Audio Adjustments (Sliders) ================= -->
+<div class="panel-container">
+    <h2>Audio Adjustments</h2>
+    <div class="controls-grid">
+        <div class="control">
+            <label for="pitch-brightness-slider">Pitch Brightness <output id="pitch-brightness-value">100%</output></label>
             <input id="pitch-brightness-slider" type="range" min="0" max="100" step="1" value="100">
             <small>Adjust the visible pitch trace without changing the audio.</small>
         </div>
 
-        <div class="button-container controls-grid">
+        <div class="control">
             <label for="gain-slider">Gain <output id="gain-value">1.00x</output></label>
             <input id="gain-slider" type="range" min="0" max="2" step="0.01" value="1">
-            <small>0 silences the audio; 1 keeps it unchanged; 2 doubles it.</small>
+            <small>0 silences; 1 unchanged; 2 doubles volume.</small>
         </div>
 
-        <div class="button-container controls-grid">
-            <label for="rate-slider">Sample rate <output id="rate-value">44100 Hz</output></label>
+        <div class="control">
+            <label for="rate-slider">Sample Rate <output id="rate-value">44100 Hz</output></label>
             <input id="rate-slider" type="range" min="8000" max="192000" step="100" value="44100">
-            <small>Changing this resamples the tensor and updates its duration.</small>
+            <small>Resamples the tensor and updates duration.</small>
         </div>
 
-        <div class="button-container controls-grid">
-
-            <button id="save-button" class="custom-btn" disabled>Apply</button>
-
+        <div class="control">
+            <button id="save-button" class="custom-btn" disabled>Apply Changes</button>
         </div>
-
-</div>
-   
-<div class="panel-container">
-    
-         <!-- Panel Heading -->
-         <h2 class="panel-heading">Audio Editor: Spectrogram (Visual representation of audio)</h2>
-
-         <div class="button-container" aria-label="Tensor editing controls">
-
-            <button class="custom-btn" id="play-latest-tensor-button" disabled>Play (latest)</button>
-            <button class="custom-btn" id="load-original-button" disabled>Play Original</button>
-            <button class="custom-btn" id="play-selected-tensor-button" disabled>Play (Selected)</button> &nbsp; 
-            <button class="custom-btn" id="undo-tensor-button" disabled>Undo</button> &nbsp; 
-            <button class="custom-btn" id="select-tensor-button" disabled>Select</button>
-            <button class="custom-btn" id="clear-selection-button" disabled>Clear (Selection)</button> &nbsp;  &nbsp;
-            <button class="custom-btn" id="copy-tensor-button" disabled>Copy</button>
-            <button class="custom-btn" id="cut-tensor-button" disabled>Cut</button>
-            <button class="custom-btn" id="paste-tensor-button" disabled>Paste</button>
-            <button class="custom-btn" id="delete-tensor-button" disabled>Delete</button>
-            <button class="custom-btn" id="backup-tensor-button" disabled>Backup</button>
-            <button class="custom-btn" id="download-tensor-button" disabled>Download</button>
-            
-
-        </div>
-
-        <div class="waveform-chart">
-
-            <div id="waveform-scroll" class="waveform-scroll">
-
-                <canvas id="waveform" aria-label="Audio spectrogram"></canvas>
-
-            </div>
-
-        </div>
-
-  </div>
-
-<div class="panel-container">
-    
-         <!-- Panel Heading -->
-         <h2 class="panel-heading">Random Split (secs): Break, create random slices, play and download clips aszip file.</h2>
-
-         <div class="button-container" aria-label="Tensor slice making controls">
-
-            <button class="custom-btn" id="break-tensor-button" disabled>Break Audior</button>
-
-            <label id="break-duration-control" class="custom-btn">
-                <span>Slice Length (seconds)</span>
-                <input class="custom-btn" id="break-duration" type="number" min="0.1" max="3600" step="0.1" value="7" disabled>
-            </label>
-
-            <button class="custom-btn" id="random-tensor-button" disabled>Random Slices</button>
-
-            <button class="custom-btn" id="play-button" disabled>Play Original</button>
-
-            <button class="custom-btn" id="play-random-button" disabled>Play Random</button>
-
-            <button class="custom-btn" id="stop-button" disabled>Stop</button>
-
-            <button class="custom-btn" id="download-selection" disabled>Download Clips</button>
-            
-        </div>
-
-  </div>
-
-<div class="panel-container">
-    
-    <!-- Panel Heading -->
-    <h2 class="panel-heading"> Magnitude of current Time Path</h2>
-
-    <p id="image-name" class="muted">Upload an image to transform with pitch and time to view the magnitude</p>
-
-    <canvas id="image-canvas" aria-label="Image transformed by the audio pitch path"></canvas>
-
- </div>
-
-<div class="panel-container">
-           
-        <div class="button-container" aria-label="File upload controls">
-
-          
-             
-
-                <input  class="custom-btn" id="audio-file" type="file" accept=".wav,.mp3,.webm,.weba,.ogg,audio/wav,audio/mpeg,audio/webm,audio/ogg">
-
-       
-
-            <button id="upload-button" class="custom-btn">Upload audio</button>
-
-            <span id="file-name" class="muted"></span>
-
-
-          
-             
-                <input  class="custom-btn" id="image-file" type="file" accept="image/png,image/jpeg,image/webp">
-
-       
-
-            <button id="image-upload-button" class="custom-btn" disabled>Load image</button>
-
-        </div>
-
     </div>
+</div>
+
+<!-- ================= SECTION 3: Waveform Visualization ================= -->
+<div class="panel-container">
+    <h2>Audio Spectrogram (Original)</h2>
+    <div class="waveform-chart">
+        <div id="waveform-scroll" class="waveform-scroll">
+            <canvas id="waveformCanvas" aria-label="Audio waveform visualization"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- ================= SECTION 4: Audio Editor Controls ================= -->
+<div class="panel-container">
+    <h2>Audio Editor: Spectrogram</h2>
+    <div class="button-container" aria-label="Tensor editing controls">
+        <button class="custom-btn" id="play-latest-tensor-button" disabled>Play (Latest)</button>
+        <button class="custom-btn" id="load-original-button" disabled>Play Original</button>
+        <button class="custom-btn" id="play-selected-tensor-button" disabled>Play (Selected)</button>
+        <button class="custom-btn" id="undo-tensor-button" disabled>Undo</button>
+        <button class="custom-btn" id="select-tensor-button" disabled>Select</button>
+        <button class="custom-btn" id="clear-selection-button" disabled>Clear Selection</button>
+        <button class="custom-btn" id="copy-tensor-button" disabled>Copy</button>
+        <button class="custom-btn" id="cut-tensor-button" disabled>Cut</button>
+        <button class="custom-btn" id="paste-tensor-button" disabled>Paste</button>
+        <button class="custom-btn" id="delete-tensor-button" disabled>Delete</button>
+        <button class="custom-btn" id="backup-tensor-button" disabled>Backup</button>
+        <button class="custom-btn" id="download-tensor-button" disabled>Download</button>
+    </div>
+    <div class="waveform-chart">
+        <div id="waveform-scroll" class="waveform-scroll">
+            <canvas id="waveform" aria-label="Audio spectrogram"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- ================= SECTION 5: Random Audio Slicing ================= -->
+<div class="panel-container">
+    <h2>Random Split: Break & Slice Audio</h2>
+    <div class="button-container" aria-label="Tensor slice making controls">
+        <button class="custom-btn" id="break-tensor-button" disabled>Break Audio</button>
+
+        <label id="break-duration-control" class="break-duration">
+            <span>Slice Length (seconds)</span>
+            <input id="break-duration" type="number" min="0.1" max="3600" step="0.1" value="7" disabled>
+        </label>
+
+        <button class="custom-btn" id="random-tensor-button" disabled>Create Random Slices</button>
+        <button class="custom-btn" id="play-button" disabled>Play Original</button>
+        <button class="custom-btn" id="play-random-button" disabled>Play Random Slice</button>
+        <button class="custom-btn" id="stop-button" disabled>Stop</button>
+        <button class="custom-btn" id="download-selection" disabled>Download as ZIP</button>
+    </div>
+</div>
+
+<!-- ================= SECTION 6: Magnitude Visualization ================= -->
+<div class="panel-container">
+    <h2>Magnitude: Current Time Path</h2>
+    <p id="image-name" class="muted">Upload an image to transform with pitch and time to view magnitude visualization.</p>
+    <canvas id="image-canvas" aria-label="Image transformed by the audio pitch path"></canvas>
+</div>
 
 <script src="{{ url_for('static', filename='js/audio-edit.js') }}"></script>
 

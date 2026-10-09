@@ -2,10 +2,10 @@
 <title>{% block title %}Tensor Edits{% endblock %}</title>
 {% block content %}
 
-             <div class="flex-dashboard">
+             <div class="editor-row">
 
             <!-- Controls Stack Left -->
-            <div class="controls-panel">
+            <div class="controls-column">
 
                 <!-- NEW SECTION: LOCAL IMAGE SOURCE UPLOADER -->
                 <div class="control-section" style="border: 1px solid #38bdf8;">
@@ -61,15 +61,18 @@
             </div>
 
             <!-- Canvas Viewport Center -->
-            <div class="canvas-panel">
-                <canvas id="displayCanvas" width="400" height="400"></canvas>
+            <div class="canvas-column">
+                <canvas id="displayCanvas" width="380" height="380"></canvas>
+
+
+                <!-- Automation Frame Memory Log Right -->
+                <div class="column-right">
+                    <h3>Tensor Sequence Array Stack (<span id="savedCount">0</span>)</h3>
+                    <ul id="historyList" class="history-list"></ul>
+                </div>
             </div>
 
-            <!-- Automation Frame Memory Log Right -->
-            <div class="history-panel">
-                <h3>Tensor Sequence Array Stack (<span id="savedCount">0</span>)</h3>
-                <ul id="historyList" class="history-list"></ul>
-            </div>
+            
 
         </div>
         <script src="{{ url_for('static', filename='js/vector.js') }}"></script>

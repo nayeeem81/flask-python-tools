@@ -2,10 +2,10 @@
 <title>{% block title %}Tensor Edits{% endblock %}</title>
 {% block content %}
 <h2>3D Box Rotation</h2>
-<div class="panel-container">
+<div class="editor-row">
 
     <!-- Section: Controls -->
-    <div class="controls-panel">
+    <div class="controls-column">
         <h3>Matrix Configurations</h3>
         <div class="slider-group">
             <label>X-Axis Angle: <span id="valX">0</span>°</label>
@@ -36,17 +36,19 @@
     </div>
 
     <!-- Section: Viewport Rendering Screen -->
-    <div class="canvas-panel">
-        <canvas id="displayCanvas" width="400" height="400"></canvas>
+    <div class="canvas-column">
+        <canvas id="displayCanvas" width="380" height="400"></canvas>
+
+         <!-- Section: Matrix History Grid -->
+        <div class="column-right">
+            <h3>Captured Tensor List (<span id="savedCount">0</span>)</h3>
+            <ul id="historyList" class="history-list">
+                <!-- Data appends here dynamically -->
+            </ul>
+        </div>
     </div>
 
-    <!-- Section: Matrix History Grid -->
-    <div class="history-panel">
-        <h3>Captured Tensor List (<span id="savedCount">0</span>)</h3>
-        <ul id="historyList" class="history-list">
-            <!-- Data appends here dynamically -->
-        </ul>
-    </div>
+   
 </div>
          <script src="{{ url_for('static', filename='js/rotate-box.js') }}"></script>
 {% endblock %}
