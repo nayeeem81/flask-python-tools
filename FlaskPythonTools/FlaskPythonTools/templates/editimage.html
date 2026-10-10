@@ -1,23 +1,16 @@
 {% extends "layout.html" %}
-<title>{% block title %}Tensor Edits{% endblock %}</title>
+{% block title %}Tensor Edits{% endblock %}
 {% block content %}
 
 <section class="workspace tensor-editor" aria-label="Tensor image viewer">
-
     <!-- Row 1: upload and basic readout -->
     <div class="upload-row">
-        <div class="shape-readout" aria-live="polite">
-            <span id="shape">Loading tensor...</span>
-            
-        </div>
-
         <div class="upload-block">
-            <div>
-                <p class="eyebrow">Source image</p>
-                <p id="image-name" class="image-name">Generated sample</p>
-            </div>
-            <input id="image-upload" type="file" accept="image/*" hidden>
+            <input id="image-upload" type="file" accept="image/*" style="display: none;">
             <button id="upload-button" class="custom-btn" type="button">Select image</button>
+        </div>
+        <div class="download-wrap">
+            <button id="download-button" class="custom-btn" type="button">Download PNG</button>
         </div>
     </div>
 
@@ -25,11 +18,13 @@
     <div class="editor-row">
         <div class="controls-column">
             <div class="panel-heading">
-                <p class="eyebrow">Channel mixer</p>
+                <span class="eyebrow">Channel mixer</span>
                 <h2>Adjust every pixel</h2>
                 <p class="muted">Each control adds an offset to its tensor channel.</p>
             </div>
-
+            <div class="history-actions">
+                <button id="reset-button" class="custom-btn" type="button">Reset channels</button>
+            </div>
             <div class="sliders">
                 <div class="channel-row channel-r" for="red-control">
                     <span class="channel-name"><i></i>Red <output id="red-value">0</output></span>
@@ -54,15 +49,10 @@
                 </div>
             </div>
 
-            <div class="history-actions">
-               
-                <button id="reset-button" class="custom-btn" type="button">Reset channels</button>
-            </div>
+            
 
             <!-- Download placed in left column as requested -->
-            <div class="download-wrap">
-                <button id="download-button" class="custom-btn download-btn" type="button">Download PNG</button>
-            </div>
+            
 
             <div class="tensor-note">
                 <span class="tensor-mark">[r, g, b]</span>
@@ -79,13 +69,23 @@
                     <button id="clear-selection-button" class="custom-btn" type="button">✂️ Deselect</button>
                 </div>
                 <div class="update-wrap">
-                    <span id="tensor-count">Stack 0</span>
-                    <span class="status-dot"></span>
+                    
+                    <span class="status-dot">.</span>
                     <button id="update-button" class="custom-btn" type="button">⚡ Apply</button>
                     <button id="undo-button" class="custom-btn" type="button">↩️ Undo</button>
                 </div>
             </div>
-
+            <div align="right">
+                <h3 id="tensor-count">Stack 0</h3>
+            </div>
+        <div class="shape-readout" aria-live="polite">
+            <span id="shape"></span>
+            <br />
+            <span id="image-name" class="image-name">Generated sample: </span>
+            <br />
+            
+        </div>
+     
             <div class="canvas-panel-editimage">
                 <div class="canvas-topline">
                     <span>Rendered pixels</span>
