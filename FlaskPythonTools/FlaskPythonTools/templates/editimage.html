@@ -26,25 +26,25 @@
                 <button id="reset-button" class="custom-btn" type="button">Reset channels</button>
             </div>
             <div class="sliders">
-                <div class="channel-row channel-r" for="red-control">
+                <div class="channel-row channel-r red" for="red-control">
                     <span class="channel-name"><i></i>Red <output id="red-value">0</output></span>
                     <div class="channel-inputs">
-                        <input id="red-control" type="range" min="-255" max="255" value="0">
-                        <input id="red-number" class="channel-number" type="number" min="-255" max="255" value="0" aria-label="Red channel offset">
+                        <input id="red-control" class="red" type="range" min="-255" max="255" value="0">
+                        <input id="red-number" class="channel-number red" type="number" min="-255" max="255" value="0" aria-label="Red channel offset">
                     </div>
                 </div>
-                <div class="channel-row channel-g" for="green-control">
+                <div class="channel-row channel-g green" for="green-control">
                     <span class="channel-name"><i></i>Green <output id="green-value">0</output></span>
-                    <div class="channel-inputs">
-                        <input id="green-control" type="range" min="-255" max="255" value="0">
-                        <input id="green-number" class="channel-number" type="number" min="-255" max="255" value="0" aria-label="Green channel offset">
+                    <div class="channel-inputs green">
+                        <input id="green-control" class="green" type="range" min="-255" max="255" value="0">
+                        <input id="green-number" class="green channel-number" type="number" min="-255" max="255" value="0" aria-label="Green channel offset">
                     </div>
                 </div>
-                <div class="channel-row channel-b" for="blue-control">
+                <div class="channel-row channel-b blue" for="blue-control">
                     <span class="channel-name"><i></i>Blue <output id="blue-value">0</output></span>
-                    <div class="channel-inputs">
-                        <input id="blue-control" type="range" min="-255" max="255" value="0">
-                        <input id="blue-number" class="channel-number" type="number" min="-255" max="255" value="0" aria-label="Blue channel offset">
+                    <div class="channel-inputs blue">
+                        <input id="blue-control" class="blue" type="range" min="-255" max="255" value="0">
+                        <input id="blue-number" class="blue channel-number" type="number" min="-255" max="255" value="0" aria-label="Blue channel offset">
                     </div>
                 </div>
             </div>

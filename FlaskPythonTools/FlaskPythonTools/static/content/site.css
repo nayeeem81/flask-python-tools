@@ -10,18 +10,19 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background: var(--panel-bg);
-    color: #e6eef2;
-    overflow: auto; /* allow scrollbars when needed */
+    background: black;
+    color: #b62695e6;
+    overflow: auto; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* main content area sits below fixed header */
 .body-content {
     box-sizing: border-box;
-    padding: 8px 6px; /* reduced side margins per request */
-    padding-top: 24px;
-    min-height: calc(100vh - var(--header-height));
+    padding: 25px; /* reduced side margins per request */
+    margin: auto;
+    margin-top: 100px;
+    background-color:thistle;
 }
 
 /* inputs kept compact; do not change IDs */
@@ -180,9 +181,9 @@ h3, h4 {
 }
 
 h3 {
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     padding-bottom: 8px;
-    color: #e6eef2;
+    color: #590325;
 }
 
 h4 {
@@ -224,9 +225,6 @@ h4 {
     border: 1px solid rgba(255,255,255,0.02);
 }
 
-.download-btn {
-    background: linear-gradient(180deg,#0f0f10,#0b0b0b);
-}
 
 .download-btn:hover {
     background: linear-gradient(180deg,#18191a,#0f0f10);
@@ -236,32 +234,11 @@ h4 {
     display: none;
 }
 
-.upload-json-label {
-    background: #27ae60;
-}
-
     .upload-json-label:hover {
         background: #2ecc71;
     }
 
-.upload-btn {
-    font-size: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 6px;
-    color: #1a1a1a;
-}
 
-    .upload-btn:last-child {
-        border-bottom: none;
-    }
-
-    .upload-btn input {
-        font-size: 0.75rem;
-        color: #555555;
-    }
 
 #canvas-container {
     width: 450px;
@@ -501,9 +478,35 @@ output {
     color: #197f7d;
 }
 
+.red {
+    color: red;
+}
+.green {
+    color: green;
+}
+
+.blue {
+    color: blue;
+}
+
 input[type=range] {
     width: 100%;
-    accent-color: #197f7d;
+    accent-color: #090909;
+}
+
+input[type=range].red {
+    width: 100%;
+    accent-color: red;
+}
+
+input[type=range].green {
+    width: 100%;
+    accent-color: green;
+}
+
+input[type=range].blue {
+    width: 100%;
+    accent-color: blue;
 }
 
 .actions {
@@ -554,7 +557,6 @@ input[type=range] {
     grid-template-columns: 250px 1fr; /* left column fixed for controls, right for canvas */
     gap: 20px;
     align-items: start;
-    margin-top: 120px;
 }
 
 .controls-column {
@@ -670,7 +672,7 @@ input[type=range] {
 
 /* ================ Header (layout.html) styling ================ */
 .app-header .navbar {
-    background: linear-gradient(180deg,#070708,#0b0b0b);
+    background: linear-gradient(180deg, #0d0da8, #0b0b0b);
     border: none;
     box-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
@@ -680,6 +682,7 @@ input[type=range] {
     display: flex;
     align-items: center;
     padding: 6px 12px;
+    border: darkblue solid 25px;
 }
 
 .app-header .navbar-bottom {
@@ -721,10 +724,13 @@ input[type=range] {
     font-weight: 700;
 }
 
-.app-header ul.nav li a:hover {
-    background: rgba(255,255,255,0.02);
-    color: #ffffff;
-}
+    .app-header ul.nav li a:hover {
+        background: rgba(255,255,255,0.02);
+        color: #ffffff;
+        border: 1px dashed #2727a9;
+        border-radius: 6px;
+        padding: 8px 12px;
+    }
 
 .app-header ul.nav li a:active,
 .app-header ul.nav li a.active {
@@ -779,35 +785,8 @@ input[type=range] {
     .app-header .navbar-bottom { overflow-x: auto; }
 }
 
-/* make the slider controls visually consistent across the site */
-.custom-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 10px; /* compact height */
-    width: auto; /* full width for consistency */
-    height: auto;
-    white-space: nowrap; /* avoid label wrapping inside button */
-    box-sizing: border-box;
-    border-radius: 6px;
-    border: 1px solid rgba(255,255,255,0.06);
-    background-color: white; /* royal black / very dark near-black */
-    color: #000000;
-    font-weight: 700;
-    font-size: 0.82rem;
-    text-transform: uppercase; /* capital letters requested */
-    letter-spacing: 0.6px;
-    cursor: pointer;
-    transition: background-color 0.15s ease, transform 0.08s ease, box-shadow 0.12s ease;
-    flex: 0 0 auto; /* prevent flex items from shrinking/growing unexpectedly */
-    margin-bottom: 6px; /* small vertical spacing when wrapped */
-}
-
 /* preserve existing download-btn color but ensure sizing */
-.download-btn {
-    padding: 8px 12px;
-}
+
 
 /* Small responsive tweak */
 @media (max-width: 720px) {
@@ -838,11 +817,13 @@ input[type=range] {
 
 /* ================= BUTTON STYLE: COMPACT, UPPERCASE, ROYAL-BLACK THEME ================ */
 /* Apply to editor control buttons only to avoid changing global site buttons */
-.tensor-editor .controls-column .action-btn,
+.upload-btn, .upload-json-label, .download-btn, action-btn,
+.tensor-editor .controls-column .action-btn, .custom-btn
 .tensor-editor .controls-column .custom-btn,
 .tensor-editor .selection-actions button,
 .tensor-editor .selection-actions .action-btn,
-.tensor-editor .download-btn, .btn-start, .btn-stop, .btn-action, btn-save, btn-io,
+.tensor-editor .download-btn, .btn-start, .btn-stop, 
+.btn-action, btn-save, btn-io,
 .tensor-editor .upload-json-label {
     display: inline-flex;
     align-items: center;
@@ -855,7 +836,7 @@ input[type=range] {
     box-sizing: border-box;
     border-radius: 6px;
     border: 1px solid rgba(255,255,255,0.06);
-    background-color: white; /* royal black / very dark near-black */
+    background-color: #b29cb6;
     color: #000000;
     font-weight: 700;
     font-size: 0.82rem;
@@ -876,12 +857,13 @@ input[type=range] {
     margin-bottom: 6px; /* small vertical spacing when wrapped */
 }
 
-    .tensor-editor .controls-column .action-btn:hover, btn-start:hover, .btn-stop:hover, 
+    .upload-json-label:hover, action-btn:hover,
+    .tensor-editor .controls-column .action-btn:hover, btn-start:hover, .btn-stop:hover,
     .btn-action:hover, btn-save:hover, btn-io:hover,
-    .tensor-editor .selection-actions button:hover,
+    .tensor-editor .selection-actions button:hover, .custom-btn:hover,
     .tensor-editor .download-btn:hover, .custom-btn:hover,
     .tensor-editor .upload-json-label:hover {
-        background-color: #1a1a1a; /* subtle lighter hover */
+        background-color: #e81bb9e6;
     }
 
 .tensor-editor .controls-column .action-btn:active,
@@ -896,3 +878,30 @@ input[type=range] {
     outline-offset: 2px;
 }
 
+    .upload-json-label:disabled, action-btn:disabled,
+    .tensor-editor .controls-column .action-btn:disabled, btn-start:disabled, .btn-stop:disabled, .btn-action:disabled, btn-save:disabled, btn-io:disabled,
+    .tensor-editor .selection-actions button:disabled, .custom-btn:disabled,
+    .tensor-editor .download-btn:disabled, .custom-btn:disabled,
+    .tensor-editor .upload-json-label:disabled {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px; /* compact height */
+        width: auto; /* full width for consistency */
+        height: auto;
+        white-space: nowrap; /* avoid label wrapping inside button */
+        box-sizing: border-box;
+        border-radius: 6px;
+        border: 1px solid rgba(255,255,255,0.06);
+        background-color: #b29cb6;
+        color: #000000;
+        font-weight: 700;
+        font-size: 0.82rem;
+        text-transform: uppercase; /* capital letters requested */
+        letter-spacing: 0.6px;
+        cursor: pointer;
+        transition: background-color 0.15s ease, transform 0.08s ease, box-shadow 0.12s ease;
+        flex: 0 0 auto; /* prevent flex items from shrinking/growing unexpectedly */
+        margin-bottom: 6px; /* small vertical spacing when wrapped */
+    }
