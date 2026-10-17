@@ -11,8 +11,8 @@ html, body {
     margin: 0;
     padding: 0;
     background: black;
-    color: #b62695e6;
-    overflow: auto; 
+    color: #212121;
+    overflow: auto;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -25,14 +25,31 @@ html, body {
     background-color:thistle;
 }
 
+.body-content p {
+    line-height: 1.5;
+    text-align:justify;
+    font-size: 16px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.jumbotron img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
 /* inputs kept compact; do not change IDs */
 input,
 select,
 textarea {
     max-width: 320px;
     color: #e6eef2;
-    background: transparent;
+    background-color: white;
     border: 1px solid rgba(255,255,255,0.04);
+}
+
+label {
+    font-weight:200;
 }
 
 /* styles for validation helpers */
@@ -64,27 +81,17 @@ input[type="checkbox"].input-validation-error {
     box-sizing: border-box;
 }
 
-.container-photo-cube {
-    font-family: inherit;
-    display: grid;
-    grid-template-columns: 320px 520px 320px; /* first column fixed to 320px, middle larger */
-    gap: 12px;
-    align-items: start;
-    height: auto;
-    padding: 12px;
-}
-
 /* ================= TOP ENGINE DECK STYLING ================= */
-.top-control-deck {
+.grid-full-span {
     grid-column: 1 / span 3;
     background: var(--panel-contrast);
-    border-radius: 6px;
+    background-color: thistle; 
     display: flex;
     justify-content: flex-start;
     gap: 12px;
     align-items: center;
     padding: 10px;
-    border: 1px solid rgba(255,255,255,0.03);
+    border: 4px inset rgba(255,255,255,0.03);
 }
 
 .deck-row {
@@ -93,13 +100,15 @@ input[type="checkbox"].input-validation-error {
 }
 
 .toggle-item {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
+    font-weight: bold;
     cursor: pointer;
     background: transparent;
-    color: var(--muted-text);
+    color: #212121;
     padding: 6px 10px;
     border-radius: 6px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 8px;
     border: 1px solid rgba(255,255,255,0.02);
@@ -107,8 +116,9 @@ input[type="checkbox"].input-validation-error {
 
 /* Play, Pause, Stop Action Buttons */
 .btn-group {
-    display: flex;
-    gap: 8px;
+    display: column;
+    flex-wrap:wrap;
+    gap: 10px;
 }
 
 .engine-btn {
@@ -174,16 +184,19 @@ input[type="checkbox"].input-validation-error {
 
 h2 {
     font-size: 20px;
+    color: #951cac;
+    margin-bottom:20px;
 }
 
 h3, h4 {
     margin: 0;
+    color: #212121;
 }
 
 h3 {
     font-size: 1.6rem;
     padding-bottom: 8px;
-    color: #590325;
+    color: #212121;
 }
 
 h4 {
@@ -241,10 +254,9 @@ h4 {
 
 
 #canvas-container {
-    width: 450px;
-    min-width: 450px;
+    width: auto;
     flex: 1 1 auto;
-    min-height: 520px; /* larger middle canvas height */
+    min-height: 500px; /* larger middle canvas height */
     border-radius: 6px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.6);
     background-color:white;
@@ -354,7 +366,7 @@ h4 {
 }
 
 .muted, small {
-    color: #687887;
+    color: #222c34;
 }
 
 .editor-panel {
@@ -450,16 +462,16 @@ h4 {
 #waveform {
     display: block;
     width: 100%;
-    height: 535px;
+    height: auto;
     border-radius: 10px;
     background: white;
 }
 
 .controls-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 5px;
 }
 
 .control {
@@ -475,7 +487,9 @@ h4 {
     }
 
 output {
-    color: #197f7d;
+    color: #cd2435;
+    padding-right: 50px;
+    margin-right:0px;
 }
 
 .red {
@@ -491,7 +505,7 @@ output {
 
 input[type=range] {
     width: 100%;
-    accent-color: #090909;
+    accent-color: #352997;
 }
 
 input[type=range].red {
@@ -541,7 +555,6 @@ input[type=range].blue {
 .tensor-editor {
     display: flex;
     flex-direction: column;
-    gap: 12px;
     width: 100%;
 }
 
@@ -549,24 +562,24 @@ input[type=range].blue {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 12px;
 }
 
 .editor-row {
     display: grid;
     grid-template-columns: 250px 1fr; /* left column fixed for controls, right for canvas */
-    gap: 20px;
+    gap: 10px;
     align-items: start;
+    margin-top: 10px;
 }
 
 .controls-column {
     background: var(--panel-contrast);
-    padding: 12px;
+    background-color: #c98dc7b8;
     border: 1px solid rgba(255,255,255,0.02);
     border-radius: 6px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    padding: 15px;
 }
 
 .canvas-column {
@@ -744,9 +757,7 @@ input[type=range].blue {
 
 /* ================ Panels and page layouts for rotatebox / 3dvector / photocube ================ */
 .panel-container {
-    display: grid;
-    grid-template-columns: 320px 1fr 320px;
-    gap: 12px;
+    gap: 15px;
     align-items: start;
     padding: 12px;
 }
@@ -815,10 +826,84 @@ input[type=range].blue {
     box-shadow: none;
 }
 
+
+.control-group, .upload-group {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.02);
+}
+
+    .control-group label {
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: flex;
+        gap: 8px;
+        color: #1a1a1a;
+        padding: 8px;
+    }
+
+.action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+    background: #111214;
+    border: 1px solid rgba(255,255,255,0.02);
+}
+
+.download-btn {
+    background: linear-gradient(180deg,#0f0f10,#0b0b0b);
+}
+
+    .download-btn:hover {
+        background: linear-gradient(180deg,#18191a,#0f0f10);
+    }
+
+.upload-json-label input {
+    display: none;
+}
+
+.upload-json-label {
+    background: #27ae60;
+}
+
+    .upload-json-label:hover {
+        background: #2ecc71;
+    }
+
+.upload-btn {
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-bottom: 0px solid #e0e0e0;
+    padding-bottom: 6px;
+    color: #212121;
+}
+
+    .upload-btn:last-child {
+        border-bottom: none;
+    }
+
+    .upload-btn input {
+        font-size: 0.95rem;
+        color: #212121;
+    }
+
+
 /* ================= BUTTON STYLE: COMPACT, UPPERCASE, ROYAL-BLACK THEME ================ */
 /* Apply to editor control buttons only to avoid changing global site buttons */
-.upload-btn, .upload-json-label, .download-btn, action-btn,
-.tensor-editor .controls-column .action-btn, .custom-btn
+ .download-btn, action-btn,
+.tensor-editor .controls-column .action-btn, 
 .tensor-editor .controls-column .custom-btn,
 .tensor-editor .selection-actions button,
 .tensor-editor .selection-actions .action-btn,
@@ -828,7 +913,7 @@ input[type=range].blue {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 12px;
     padding: 10px; /* compact height */
     width: auto; /* full width for consistency */
     height: auto;
@@ -845,17 +930,19 @@ input[type=range].blue {
     cursor: pointer;
     transition: background-color 0.15s ease, transform 0.08s ease, box-shadow 0.12s ease;
     flex: 0 0 auto; /* prevent flex items from shrinking/growing unexpectedly */
-    margin-bottom: 6px; /* small vertical spacing when wrapped */
+    margin-bottom: 10px; /* small vertical spacing when wrapped */
 }
 
 .tensor-editor .selection-actions {
     gap: 10px; /* ensure spacing between wrapped items */
     flex-wrap: wrap; /* allow wrap and avoid overlap */
+    padding: 8px;
 }
 
-.tensor-editor .selection-actions button {
-    margin-bottom: 6px; /* small vertical spacing when wrapped */
-}
+    .tensor-editor .selection-actions button {
+        margin-bottom: 6px; /* small vertical spacing when wrapped */
+        padding: 8px;
+    }
 
     .upload-json-label:hover, action-btn:hover,
     .tensor-editor .controls-column .action-btn:hover, btn-start:hover, .btn-stop:hover,
@@ -905,3 +992,12 @@ input[type=range].blue {
         flex: 0 0 auto; /* prevent flex items from shrinking/growing unexpectedly */
         margin-bottom: 6px; /* small vertical spacing when wrapped */
     }
+.tensor-note, .tensor-mark {
+    margin-top: 10px;
+    text-align: justify;
+}
+
+#reset-button {
+    margin: 10px;
+    text-align: center;
+}

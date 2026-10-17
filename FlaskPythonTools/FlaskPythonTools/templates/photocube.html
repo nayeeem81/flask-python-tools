@@ -2,103 +2,73 @@
 
 {% block content %}
 
-    <!-- ================= TOP SECTION: CONTROL DECK ================= -->
-    <div class="grid-full-span">
-        
-        
-        
-        <div class="grid-row">
-           
-            <div class="btn-group">
-                <button id="play-btn" class="engine-btn play">▶ Play</button>
-                <button id="pause-btn" class="engine-btn pause">⏸ Pause</button>
-                <button id="stop-btn" class="engine-btn stop">⏹ Stop / Reset</button>
-            </div>
-        </div>
-       
-        <div class="grid-row status-container">
+<div class="grid-full-span">
+    <div class="deck-row"> 
+        <div class="btn-group">
+            <button id="play-btn" class="engine-btn play">▶ Play</button>
+            <button id="pause-btn" class="engine-btn pause">⏸ Pause</button>
+            <button id="stop-btn" class="engine-btn stop">⏹ Stop / Reset</button>
             <div class="status-light-wrapper">
                 <span id="status-light" class="status-light state-play"></span>
                 <span id="status-text" class="status-text">PLAYING</span>
             </div>
-        </div>
-
-        <br>
-        
-        <div class="grid-row">
-            <div class="control-group">
-                <h3>X-Axis Target Speed</h3>
-        
-                <br>    
-
+            <div class="btn-group">
+                <h3>X-Axis Speed</h3>     
                 <label><input type="radio" name="speed-x" value="0.005"> Slow (0.005)</label>
                 <label><input type="radio" name="speed-x" value="0.01" checked> Medium (0.01)</label>
                 <label><input type="radio" name="speed-x" value="0.03"> Fast (0.03)</label>
-            </div>
-
-            <div class="control-group">
-                <h3>Y-Axis Target Speed</h3>
-                <br>
+            </div>  
+            <div class="btn-group">
+                <h3>Y-Axis Speed</h3>
                 <label><input type="radio" name="speed-y" value="0.005"> Slow (0.005)</label>
                 <label><input type="radio" name="speed-y" value="0.01" checked> Medium (0.01)</label>
-                <label><input type="radio" name="speed-y" value="0.03"> Fast (0.03)</label>
+                <label><input type="radio" name="speed-y" value="0.03"> Fast (0.03)</label>   
             </div>
         </div>
     </div>
+</div>
 
-    <!-- ================= BOTTOM SECTION: 2-COLUMN LAYOUT ================= -->
+<!-- ================= BOTTOM SECTION: 2-COLUMN LAYOUT ================= -->
 
-    <div class="editor-row">
-        <div id="canvas-container" class="controls-column"></div>
-        
-        <div class="canvas-column">
-           
-            <div class="panel-card">
-                <div class="grid-row">           
-                <label class="toggle-item"><input type="checkbox" id="rotate-x" checked> Rotate X-Axis</label>
-                <label class="toggle-item"><input type="checkbox" id="rotate-y" checked> Rotate Y-Axis</label>
-            </div>
-                <!-- UPDATED: ZIP BUNDLE ENGINE CONTROLS -->
-                <div class="control-group data-sync">
-                   
-                    <button id="download-bundle-btn" class="custom-btn">📥 Download</button>
-                    <label class="custom-btn upload-json-label">
-                        📤 Upload
-                        <input type="file" class="custom-btn" id="upload-bundle-file" accept=".zip">
-                    </label>
-                    <button id="play-upload-btn" class="custom-btn play-upload-btn" disabled>⏯️ Play</button>
-                </div>
-               
-            
-                <div class="upload-group">
-                    
-                    <label class="upload-btn">Face 1 (Right): <input type="file" id="upload-0" accept="image/*"></label>
-                    <label class="upload-btn">Face 2 (Left): <input type="file" id="upload-1" accept="image/*"></label>
-                    <label class="upload-btn">Face 3 (Top): <input type="file" id="upload-2" accept="image/*"></label>
-                    <label class="upload-btn">Face 4 (Bottom): <input type="file" id="upload-3" accept="image/*"></label>
-                    <label class="upload-btn">Face 5 (Front): <input type="file" id="upload-4" accept="image/*"></label>
-                    <label class="upload-btn">Face 6 (Back): <input type="file" id="upload-5" accept="image/*"></label>
-                </div>
-            </div>
-    </div>
-
-    </div>
-
-    <div class="grid-full-span">
-        
-            <h4>Live Vector & Rotation Telemetry Log</h4>
-            <div class="log-headers">
-                <span>Timestamp (ms)</span>
-                <span>Speed Vector (X, Y)</span>
-                <span>Angles (Rad) (X, Y, Z)</span>
-            </div>
-            <div id="telemetry-log-stream" class="log-stream"></div>
+<div class="editor-row">
+    <div class="controls-column">
+        <div class="grid-row">
+            <label class="toggle-item"><input type="checkbox" id="rotate-x" checked> Rotate X-Axis</label>
+            <label class="toggle-item"><input type="checkbox" id="rotate-y" checked> Rotate Y-Axis</label>
         </div>
+        <!-- UPDATED: UPLOAD FILE CONTROLS -->
+        <label class="upload-btn">Face 1 (Right): <input type="file" id="upload-0" accept="image/*"></label>
+        <label class="upload-btn">Face 2 (Left): <input type="file" id="upload-1" accept="image/*"></label>
+        <label class="upload-btn">Face 3 (Top): <input type="file" id="upload-2" accept="image/*"></label>
+        <label class="upload-btn">Face 4 (Bottom): <input type="file" id="upload-3" accept="image/*"></label>
+        <label class="upload-btn">Face 5 (Front): <input type="file" id="upload-4" accept="image/*"></label>
+        <label class="upload-btn">Face 6 (Back): <input type="file" id="upload-5" accept="image/*"></label>
 
-
-    
-    <script src="{{ url_for('static', filename='js/jszip.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/cube.js') }}"></script>
+         <!-- UPDATED: ZIP BUNDLE ENGINE CONTROLS -->
+        <div class="control-group data-sync">
+            <button id="download-bundle-btn" class="action-btn download-btn">📥 Download</button>
+            <label class="action-btn upload-json-label">📤 Upload
+                <input type="file" id="upload-bundle-file" accept=".zip">
+            </label>
+            <button id="play-upload-btn" class="action-btn play-upload-btn" style="background: #8e44ad; margin-top: 5px;" disabled>⏯️ Play</button>
+        </div>
     </div>
+
+    <div id="canvas-container" class="canvas-column"></div>
+
+</div>
+
+<div class="grid-full-span">
+    <h4>Live Vector & Rotation Telemetry Log</h4>
+    <div class="log-headers">
+        <span>Timestamp (ms)</span>
+        <span>Speed Vector (X, Y)</span>
+        <span>Angles (Rad) (X, Y, Z)</span>
+    </div>
+    <div id="telemetry-log-stream" class="log-stream"></div>
+</div>
+
+<script src="{{ url_for('static', filename='js/jszip.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/three.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cube.js') }}"></script>
 {% endblock %}

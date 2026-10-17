@@ -51,6 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FlaskPythonTools\sample.png" />
+    <Content Include="FlaskPythonTools\static\images\25.png" />
+    <Content Include="FlaskPythonTools\static\images\27.png" />
+    <Content Include="FlaskPythonTools\static\images\32.png" />
+    <Content Include="FlaskPythonTools\static\images\33.png" />
+    <Content Include="FlaskPythonTools\static\images\39.png" />
     <Content Include="FlaskPythonTools\static\images\side1.png" />
     <Content Include="FlaskPythonTools\static\images\side2.png" />
     <Content Include="FlaskPythonTools\static\images\side3.png" />

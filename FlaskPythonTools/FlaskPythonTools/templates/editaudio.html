@@ -23,7 +23,14 @@
 
 <!-- ================= SECTION 2: Audio Adjustments (Sliders) ================= -->
 <div class="panel-container">
+
     <h2>Audio Adjustments</h2>
+   
+    <button id="save-button" class="custom-btn" disabled>Apply Changes</button>
+
+    <br/>
+    <br/>
+
     <div class="controls-grid">
         <div class="control">
             <label for="pitch-brightness-slider">Pitch Brightness <output id="pitch-brightness-value">100%</output></label>
@@ -41,10 +48,6 @@
             <label for="rate-slider">Sample Rate <output id="rate-value">44100 Hz</output></label>
             <input id="rate-slider" type="range" min="8000" max="192000" step="100" value="44100">
             <small>Resamples the tensor and updates duration.</small>
-        </div>
-
-        <div class="control">
-            <button id="save-button" class="custom-btn" disabled>Apply Changes</button>
         </div>
     </div>
 </div>
