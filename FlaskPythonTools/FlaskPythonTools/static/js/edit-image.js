@@ -71,9 +71,16 @@ function displayPixel(x, y) {
 
 function render() {
   const { width, height, pixels } = tensor;
+
+  // 🔥 CRITICAL FIX: Match the overlay canvas resolution to the image data resolution
+  selectionCanvas.width = width;
+  selectionCanvas.height = height;
+
   const image = context.createImageData(width, height);
   const offsets = controls.map((control) => Number(control.value));
-  outputs.forEach((output, index) => { output.value = offsets[index] > 0 ? `+${offsets[index]}` : offsets[index]; });
+  outputs.forEach((output, index) => { 
+    output.value = offsets[index] > 0 ? `+${offsets[index]}` : offsets[index]; 
+  });
 
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {
@@ -84,11 +91,14 @@ function render() {
       image.data[index + 2] = clamp(source[2] + offsets[2]);
       image.data[index + 3] = 255;
     }
-
   }
+  
   context.putImageData(image, 0, 0);
-  drawSelection();
+  
+  // Now this will render perfectly aligned nodes on top!
+  drawSelection(); 
 }
+
 
 function syncNumberControls() {
   controls.forEach((control, index) => {
@@ -154,9 +164,12 @@ function drawSelection() {
 
 function canvasPoint(event) {
   const bounds = selectionCanvas.getBoundingClientRect();
+  
+  // Use selectionCanvas.width/height instead of tensor dimensions 
+  // if your canvas is already scaled to fit the tensor data.
   return {
-    x: (event.clientX - bounds.left) * tensor.width / bounds.width,
-    y: (event.clientY - bounds.top) * tensor.height / bounds.height,
+    x: (event.clientX - bounds.left) * (selectionCanvas.width / bounds.width),
+    y: (event.clientY - bounds.top) * (selectionCanvas.height / bounds.height),
   };
 }
 
@@ -217,15 +230,31 @@ controls.forEach((control, index) => control.addEventListener('input', () => {
   numberControls[index].value = control.value;
   render();
 }));
+
 numberControls.forEach((control, index) => control.addEventListener('change', () => {
   setControlValue(index, control.value);
 }));
+
 selectionCanvas.addEventListener('pointermove', showPixel);
+
 selectionCanvas.addEventListener('click', (event) => {
-  if (selectedPolygon) return;
-  dots.push(canvasPoint(event));
-  drawSelection();
+    console.log("Canvas clicked! Current selectedPolygon state:", selectedPolygon);
+    
+    if (selectedPolygon) {
+        console.warn("Click blocked because selectedPolygon is true.");
+        return;
+    }
+    
+    const point = canvasPoint(event);
+    console.log("Calculated point coordinates:", point);
+    
+    dots.push(point);
+    console.log("Current dots array length:", dots.length);
+    
+    drawSelection(); 
 });
+
+
 downloadButton.addEventListener('click', () => {
   if (!tensor) return;
   const outputCanvas = document.createElement('canvas');
@@ -269,24 +298,28 @@ imageUpload.addEventListener('change', async () => {
     imageName.textContent = error.message;
   }
 });
+
 document.querySelector('#create-selection-button').addEventListener('click', () => {
   if (dots.length < 3) return;
   selectedPolygon = [...dots];
   selectionSource = 'latest';
   render();
 });
+
 document.querySelector('#create-original-selection-button').addEventListener('click', () => {
   if (dots.length < 3) return;
   selectedPolygon = [...dots];
   selectionSource = 'original';
   render();
 });
+
 document.querySelector('#clear-selection-button').addEventListener('click', () => {
   dots = [];
   selectedPolygon = null;
   selectionSource = 'latest';
   render();
 });
+
 document.querySelector('#update-button').addEventListener('click', () => {
   if (!tensor) return;
   const offsets = controls.map((control) => Number(control.value));

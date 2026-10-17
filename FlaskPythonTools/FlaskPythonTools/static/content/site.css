@@ -655,23 +655,22 @@ input[type=range].blue {
 }
 
 .canvas-stage {
-    position: relative;
-    display: inline-block; /* keep canvas natural pixel size but allow scaling */
+    position: relative; /* Creates the bounding container */
 }
 
-#tensor-canvas,
-#selection-canvas {
+#tensor-canvas {
     display: block;
-    max-width: 100%;
+    width: 100%; /* Or whatever display size you need */
     height: auto;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.6);
 }
 
 #selection-canvas {
     position: absolute;
-    left: 0;
     top: 0;
-    pointer-events: none;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto; /* Ensures it can intercept your clicks */
 }
 
 .canvas-topline, .canvas-footline {
@@ -825,7 +824,6 @@ input[type=range].blue {
     /* fallback safety kept for older rules */
     box-shadow: none;
 }
-
 
 .control-group, .upload-group {
     display: flex;

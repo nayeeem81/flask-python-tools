@@ -80,15 +80,13 @@
             <div align="right">
                 <h3 id="tensor-count">Stack 0</h3>
             </div>
-        <div class="shape-readout" aria-live="polite">
-            <span id="shape"></span>
-            <br />
-            <span id="image-name" class="image-name">Generated sample: </span>
-            <br />
-            
-        </div>
-     
-            <div class="canvas-panel-editimage">
+                      <div class="canvas-panel-editimage">
+                 <div class="shape-readout" aria-live="polite">
+                    <span id="shape">Loading tensor...</span>
+                    <span id="tensor-count">Stack 0</span>
+                    <span class="status-dot"></span>
+                    <span id="image-name" class="image-name">Generated sample: </span>
+                </div>  
                 <div class="canvas-topline">
                     <span>Rendered pixels</span>
                     <span id="pixel-position">Hover a pixel</span>
@@ -106,6 +104,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+     
+ 
         </div>
     </div>
 
