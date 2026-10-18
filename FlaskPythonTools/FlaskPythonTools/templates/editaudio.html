@@ -25,7 +25,6 @@
     </div>
 
 </div>
-
 <!-- ================= SECTION 2: Audio Adjustments (Sliders) ================= -->
 <div class="panel-container">
 
@@ -59,17 +58,21 @@
 
 <!-- ================= SECTION 3: Waveform Visualization ================= -->
 <div class="panel-container">
-    <h2>Audio Spectrogram (Original)</h2>
-    <div class="waveform-chart">
-        <div id="waveform-scroll" class="waveform-scroll">
+    <h2> Waveform Visualization (Original) |  Magnitude: Current Time Path</h2>
+    <div id="waveform-chartpitch">
+        <div id="waveform-original">
             <canvas id="waveformCanvas" aria-label="Audio waveform visualization"></canvas>
+        </div>
+        <!-- ================= SECTION 6: Magnitude Visualization ================= -->
+        <div id="waveform-pitch" class="waveform-pitch">
+            <p id="image-name" class="muted">Upload an image to transform with pitch and time to view magnitude visualization.</p>
+            <canvas id="image-canvas" aria-label="Image transformed by the audio pitch path"></canvas>
         </div>
     </div>
 </div>
-
 <!-- ================= SECTION 4: Audio Editor Controls ================= -->
 <div class="panel-container">
-    <h2>Audio Editor: Spectrogram</h2>
+    <h2>Wav Spectrogram Editor: Copy, Cut, Delete, Break, Random Slice, Play & Download</h2>
     <div class="button-container" aria-label="Tensor editing controls">
         <button class="custom-btn" id="play-latest-tensor-button" disabled>Play (Latest)</button>
         <button class="custom-btn" id="load-original-button" disabled>Play Original</button>
@@ -90,34 +93,19 @@
         </div>
     </div>
 </div>
-
 <!-- ================= SECTION 5: Random Audio Slicing ================= -->
 <div class="panel-container">
-    <h2>Random Split: Break & Slice Audio</h2>
     <div class="button-container" aria-label="Tensor slice making controls">
         <button class="custom-btn" id="break-tensor-button" disabled>Break Audio</button>
-
-        <label id="break-duration-control" class="break-duration">
-            <span>Slice Length (seconds)</span>
-            <input id="break-duration" type="number" min="0.1" max="3600" step="0.1" value="7" disabled>
-        </label>
-
+        <input id="break-duration" class="duration" type="range" min="11" max="60" step="1" value="11" disabled>
+        <span class="custom-btn">(seconds)</span>
         <button class="custom-btn" id="random-tensor-button" disabled>Create Random Slices</button>
         <button class="custom-btn" id="play-button" disabled>Play Original</button>
         <button class="custom-btn" id="play-random-button" disabled>Play Random Slice</button>
         <button class="custom-btn" id="stop-button" disabled>Stop</button>
         <button class="custom-btn" id="download-selection" disabled>Download as ZIP</button>
     </div>
-
     <p id="error" class="error" role="alert"></p>
-
-</div>
-
-<!-- ================= SECTION 6: Magnitude Visualization ================= -->
-<div class="panel-container">
-    <h2>Magnitude: Current Time Path</h2>
-    <p id="image-name" class="muted">Upload an image to transform with pitch and time to view magnitude visualization.</p>
-    <canvas id="image-canvas" aria-label="Image transformed by the audio pitch path"></canvas>
 </div>
 
 <script src="{{ url_for('static', filename='js/audio-edit.js') }}"></script>

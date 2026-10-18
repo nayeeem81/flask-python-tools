@@ -50,7 +50,6 @@
     <Folder Include="FlaskPythonTools\templates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FlaskPythonTools\sample.png" />
     <Content Include="FlaskPythonTools\static\images\25.png" />
     <Content Include="FlaskPythonTools\static\images\27.png" />
     <Content Include="FlaskPythonTools\static\images\32.png" />
@@ -80,6 +79,7 @@
     <Content Include="FlaskPythonTools\templates\photocube.html" />
     <Content Include="FlaskPythonTools\templates\rotatebox.html" />
     <Content Include="FlaskPythonTools\templates\rotateface.html" />
+    <Content Include="FlaskPythonTools\sample.png" />
     <Content Include="requirements.txt" />
     <Content Include="FlaskPythonTools\static\content\bootstrap.css" />
     <Content Include="FlaskPythonTools\static\content\bootstrap.min.css" />

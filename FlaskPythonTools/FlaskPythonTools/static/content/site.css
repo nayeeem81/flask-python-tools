@@ -206,6 +206,11 @@ h4 {
     color: #555555; /* Neutral Dark Grey Subtitles */
 }
 
+#waveform-chartpitch {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .control-group, .upload-group {
     display: flex;
     flex-direction: column;
@@ -465,7 +470,7 @@ h4 {
 #waveform {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100px;
     border-radius: 10px;
     background: white;
 }
@@ -510,6 +515,11 @@ input[type=range] {
     width: 100%;
     accent-color: #352997;
 }
+
+    input[type=range].duration {
+        width: 50px;
+        accent-color: black;
+    }
 
 input[type=range].red {
     width: 100%;

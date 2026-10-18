@@ -84,7 +84,8 @@ function updateTensorEditButtons() {
     if (cutTensorButton) cutTensorButton.classList.toggle("active", clipboardMode === "cut");
 }
 
-async function requestJson(url, options = {}) {
+async function requestJson(url, options = {})
+{
     const response = await fetch(url, options);
     const text = await response.text();
     let body;
@@ -93,8 +94,9 @@ async function requestJson(url, options = {}) {
     } catch {
         throw new Error(`The server returned an invalid response (${response.status}).`);
     }
+
     if (!response.ok) throw new Error(body.error || "The request failed.");
-    return body;
+        return body;
 }
 
 async function tensorEdit(action, extra = {}) {
@@ -106,9 +108,11 @@ async function tensorEdit(action, extra = {}) {
 
     await refreshSpectrogram();
 
-    if (undoTensorButton) undoTensorButton.dataset.canUndo = body.can_undo ? "true" : "";
+    if (undoTensorButton)
+        undoTensorButton.dataset.canUndo = body.can_undo ? "true" : "";
 
-    if (pasteTensorButton) pasteTensorButton.dataset.hasClipboard = body.clipboard_samples > 0 ? "true" : "";
+    if (pasteTensorButton)
+        pasteTensorButton.dataset.hasClipboard = body.clipboard_samples > 0 ? "true" : "";
 
     selection = null;
     selectionPoints = [];
@@ -116,7 +120,6 @@ async function tensorEdit(action, extra = {}) {
     pasteMode = false;
 
     updateTensorEditButtons();
-    
     return body;
 }
 
