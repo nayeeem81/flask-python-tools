@@ -632,6 +632,126 @@ function canvasSamplePosition(event) {
     return Math.round(Math.max(0, Math.min(1, (event.clientX - rect.left) / rect.width)) * metadata.samples);
 }
 
+// --- CENTRAL EVENT REGISTRATION PIPELINE ---
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. Playback Controls Core Binding
+    if (playButton) {
+        playButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            // Pulling local coordinate parameters if selection bounds are active
+            const start = (selection) ? selection.start : null;
+            const end = (selection) ? selection.end : null;
+            playAudio("original", start, end);
+        });
+    }
+
+    if (stopButton) {
+        stopButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            stopPlayback();
+        });
+    }
+
+    if (playRandomButton) {
+        playRandomButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            playAudio("random");
+        });
+    }
+
+    if (playLatestTensorButton) {
+        playLatestTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            playAudio("latest");
+        });
+    }
+
+    if (playSelectedTensorButton) {
+        playSelectedTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (selection) {
+                playAudio("original", selection.start, selection.end);
+            } else {
+                setError("Please highlight a specific frame slice selection first.");
+            }
+        });
+    }
+
+    // 2. Processing Action Pipeline Bindings
+    if (saveButton) {
+        saveButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            saveChanges();
+        });
+    }
+
+    if (breakTensorButton) {
+        breakTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            breakTensor();
+        });
+    }
+
+    if (randomTensorButton) {
+        randomTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            createRandomTensor();
+        });
+    }
+
+    if (downloadButton) {
+        downloadButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            downloadStacks();
+        });
+    }
+
+    if (loadOriginalButton) {
+        loadOriginalButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            tensorEdit("original"); // Assuming tensorEdit action map
+        });
+    }
+
+    // 3. Matrix Clipboard/Tensor Action Modifiers
+    if (copyTensorButton) {
+        copyTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (selection) tensorEdit("copy", { start: selection.start, end: selection.end });
+        });
+    }
+
+    if (cutTensorButton) {
+        cutTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (selection) tensorEdit("cut", { start: selection.start, end: selection.end });
+        });
+    }
+
+    if (pasteTensorButton) {
+        pasteTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            const position = (pastePosition !== null) ? pastePosition : (selection ? selection.start : 0);
+            tensorEdit("paste", { position: position });
+        });
+    }
+
+    if (deleteTensorButton) {
+        deleteTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (selection) tensorEdit("delete", { start: selection.start, end: selection.end });
+        });
+    }
+
+    if (undoTensorButton) {
+        undoTensorButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            tensorEdit("undo");
+        });
+    }
+});
 
 
 // --- AUDIO ACTION IMPLEMENTATION ---
