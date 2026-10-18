@@ -167,13 +167,13 @@ def _audio_metadata(state: AudioState) -> dict:
         "max": float(state.waveform.max().item()),
     }
 
-
 def _image_data_url(image: torch.Tensor) -> str:
-    pixels = image.detach().cpu().clamp(0, 1).mul(255).byte().permute(1, 2, 0).numpy()
-    output = io.BytesIO()
-    Image.fromarray(pixels, mode="RGB").save(output, format="PNG")
-    encoded = base64.b64encode(output.getvalue()).decode("ascii")
-    return f"data:image/png;base64,{encoded}"
+	pixels = image.detach().cpu().clamp(0, 1).mul(255).byte().permute(1, 2, 0).numpy()
+	output = io.BytesIO()
+	mode = "RGBA" if pixels.shape[2] == 4 else "RGB"
+	Image.fromarray(pixels, mode=mode).save(output, format="PNG")
+	encoded = base64.b64encode(output.getvalue()).decode("ascii")
+	return f"data:image/png;base64,{encoded}"
 
 
 def _export(state: AudioState, start: Optional[int] = None, end: Optional[int] = None):
@@ -336,7 +336,6 @@ def spectrogram():
         }
     )
 
-
 @app.post("/api/image")
 def upload_image():
     try:
@@ -350,8 +349,9 @@ def upload_image():
 
     try:
         with Image.open(image_file.stream) as source:
-            rgb = source.convert("RGB")
-            pixels = np.asarray(rgb, dtype=np.float32) / 255.0
+            # CHANGE HERE: Convert to RGBA instead of RGB to supply the alpha channel
+            rgba = source.convert("RGBA")
+            pixels = np.asarray(rgba, dtype=np.float32) / 255.0
         image = torch.from_numpy(pixels).permute(2, 0, 1).contiguous()
     except Exception as exc:
         return jsonify({"error": f"Could not decode the image: {exc}"}), 400

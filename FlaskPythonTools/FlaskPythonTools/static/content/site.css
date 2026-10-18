@@ -394,11 +394,14 @@ h4 {
 
 #image-canvas {
     display: block;
-    width: 100%;
+    width: auto; /* Let canvas use its internal pixel width */
+    max-width: 100%; /* Prevent it from overflowing its container */
     max-height: 336px;
     object-fit: contain;
     border-radius: 10px;
     background: white;
+    /* ADD THIS FOR TESTING: If the canvas is rendering, you will see this border */
+    border: 2px dashed #ff0000;
 }
 
 .panel-heading {

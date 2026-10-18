@@ -1,35 +1,40 @@
 {% extends "layout.html" %}
-<title>{% block title %}Audio Editor{% endblock %}</title>
+{% block title %}Tensor Edits{% endblock %}
 {% block content %}
 
 <!-- ================= SECTION 1: File Upload ================= -->
 <div class="panel-container">
-    <h2>Upload Audio & Image</h2>
-    <div class="button-container" aria-label="File upload controls">
-        <label for="audio-file" class="custom-btn">
-            Select Audio (.wav, .mp3, .webm, .ogg)
-            <input id="audio-file" type="file" accept=".wav,.mp3,.webm,.weba,.ogg,audio/wav,audio/mpeg,audio/webm,audio/ogg" style="display:none;">
-        </label>
-        <button id="upload-button" class="custom-btn" disabled>Upload Audio</button>
-        <span id="file-name" class="muted"></span>
 
-        <label for="image-file" class="custom-btn">
-            Select Image (.png, .jpeg, .webp)
-            <input id="image-file" type="file" accept="image/png,image/jpeg,image/webp" style="display:none;">
-        </label>
-        <button id="image-upload-button" class="custom-btn" disabled>Load Image</button>
+    <h2>Upload Audio & Image</h2>
+
+    <div class="button-container" aria-label="File upload controls">
+        <!-- Audio Section -->
+        <div class="group">
+            <label for="audio-file" class="custom-btn">Select Audio (.wav)</label>
+            <input id="audio-file" type="file" accept=".wav,audio/wav" style="display:none;">
+            <span id="file-name" class="muted"></span>
+            <button id="upload-button" class="custom-btn" disabled>Upload Audio</button>
+        </div>
+
+        <!-- Image Section -->
+        <div class="group">
+            <label for="image-file" class="custom-btn">Select Image (.png)</label>
+            <input id="image-file" type="file" accept="image/png" style="display:none;">
+            <button id="image-upload-button" class="custom-btn" disabled>Load Image</button>
+        </div>
     </div>
+
 </div>
 
 <!-- ================= SECTION 2: Audio Adjustments (Sliders) ================= -->
 <div class="panel-container">
 
     <h2>Audio Adjustments</h2>
-   
+
     <button id="save-button" class="custom-btn" disabled>Apply Changes</button>
 
-    <br/>
-    <br/>
+    <br />
+    <br />
 
     <div class="controls-grid">
         <div class="control">
@@ -103,8 +108,8 @@
         <button class="custom-btn" id="stop-button" disabled>Stop</button>
         <button class="custom-btn" id="download-selection" disabled>Download as ZIP</button>
     </div>
-    
-<p id="error" class="error" role="alert"></p>
+
+    <p id="error" class="error" role="alert"></p>
 
 </div>
 
