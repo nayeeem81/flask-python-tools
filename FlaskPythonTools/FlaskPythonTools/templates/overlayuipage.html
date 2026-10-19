@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen 3D Player with UI Controls</title>
+    <style>
+        /* Reset and prevent page scrolling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #111;
+        }
+
+        /* Container that holds both the 3D scene and the UI */
+        #player-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 3D Canvas layer filling the background */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1; /* Sits behind the UI */
+        }
+
+        /* The Custom UI Overlay Wrapper */
+        .ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10; /* Sits on top of the canvas */
+            pointer-events: none; /* Allows mouse interactions to pass through to 3D controls if necessary */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start
+            padding: 20px;
+        }
+
+        /* Enable pointer events specifically for the buttons and bars inside the overlay */
+        .ui-element {
+            pointer-events: auto;
+        }
+
+        /* Header UI Styles */
+        .ui-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: start;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        /* Footer Controls Styles */
+        .ui-footer {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 30px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            align-self: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Button Styling */
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+            .btn:hover {
+                background: #fff;
+                color: #111;
+                transform: translateY(-2px);
+            }
+
+            .btn:active {
+                transform: translateY(0);
+            }
+    </style>
+   
+    <script src="jszip.min.js"></script>
+    <script src="three.min.js"></script>
+    <script src="cube.js"></script>
+</head>
+<body>
+
+    <!-- Container element for native full screen requests -->
+    <div id="player-container">
+
+        <!-- Three.js will inject the 3D <canvas> element dynamically here -->
+        <!-- Custom UI Controls Overlay Layer -->
+        <div class="ui-overlay">
+  
+            <!-- Top Bar -->
+            <div class="ui-header">
+
+
+
+                <button id="play-btn" class="engine-btn play">▶ Play</button>
+                <button id="pause-btn" class="engine-btn pause">⏸ Pause</button>
+                <button id="stop-btn" class="engine-btn stop">⏹ Stop</button>
+
+
+                <label class="toggle-item"><input type="checkbox" id="rotate-x" checked> Rotate X</label>
+                <label><input type="radio" name="speed-x" value="0.005">Slow</label>
+                <label><input type="radio" name="speed-x" value="0.01" checked>Medium</label>
+                <label><input type="radio" name="speed-x" value="0.03">Fast</label>
+
+                <label class="toggle-item"><input type="checkbox" id="rotate-y" checked> Rotate Y</label>
+                <label><input type="radio" name="speed-y" value="0.005">Slow</label>
+                <label><input type="radio" name="speed-y" value="0.01" checked>Medium</label>
+                <label><input type="radio" name="speed-y" value="0.03">Fast</label>
+
+
+               
+               
+
+
+
+
+
+
+
+
+                <button id="download-bundle-btn" class="action-btn download-btn">📥 Download</button>
+                <label class="action-btn upload-json-label">
+                    📤 Upload
+                    <input type="file" id="upload-bundle-file" accept=".zip">
+                </label>
+                <button id="play-upload-btn" class="action-btn play-upload-btn" style="background: #8e44ad; margin-top: 5px;" disabled>⏯️ Play</button>
+
+
+
+                <br />
+                <!-- UPDATED: UPLOAD FILE CONTROLS -->
+                <label class="upload-btn">R: <input type="file" id="upload-0" accept="image/*"></label>
+                <label class="upload-btn">L: <input type="file" id="upload-1" accept="image/*"></label>
+                <label class="upload-btn">T: <input type="file" id="upload-2" accept="image/*"></label>
+                <label class="upload-btn">B: <input type="file" id="upload-3" accept="image/*"></label>
+                <label class="upload-btn">F: <input type="file" id="upload-4" accept="image/*"></label>
+                <label class="upload-btn">B: <input type="file" id="upload-5" accept="image/*"></label>
+
+                <!-- UPDATED: ZIP BUNDLE ENGINE CONTROLS -->
+
+
+                <h2>3D Experience Player</h2>
+                <button id="fullscreen-btn" class="btn ui-element">Go Fullscreen</button>
+            </div>
+
+            <!-- Bottom Control Panel -->
+            <div class="ui-footer ui-element">
+                <button id="rotate-left-btn" class="btn">Rotate Left</button>
+                <button id="color-btn" class="btn">Change Color</button>
+                <button id="rotate-right-btn" class="btn">Rotate Right</button>
+            </div>
+
+        </div>
+   
+
+    <script>
+        // --- 1. SETUP THREE.JS 3D ENVIRONMENT ---
+        const container = document.getElementById('player-container');
+
+        // Create Scene, Camera, and WebGL Renderer
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a2e); // Deep dark blue background
+
+        //const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        //const camera = new THREE.PerspectiveCamera(75, 1000 / 1000, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000); 
+
+        camera.position.z = 8
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+       // renderer.setSize(1000,1000);
+        container.appendChild(renderer.domElement); // Appends the canvas inside the container
+
+        // Add Ambient and Directional Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(7, 4, 7);
+        scene.add(directionalLight);
+
+        // Add a Placeholder 3D Geometry (A Cube)
+        const geometry = new THREE.BoxGeometry(7, 4, 7);
+        const material = new THREE.MeshStandardMaterial({ color: 0x0077ff, roughness: 0.4 });
+        const cube = new THREE.Mesh(geometry, material);
+        scene.add(cube);
+
+        // --- 2. NATIVE FULLSCREEN API LOGIC ---
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+        fullscreenBtn.addEventListener('click', () => {
+            // Check if document is already in fullscreen mode
+            if (!document.fullscreenElement) {
+                // Request fullscreen on the WRAPPER container so UI stays visible on top
+                container.requestFullscreen().catch(err => {
+                    alert(`Error trying to enable fullscreen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        });
+
+        // Listen for fullscreen alterations to update the button display text
+        document.addEventListener('fullscreenchange', () => {
+            if (document.fullscreenElement) {
+                fullscreenBtn.textContent = 'Exit Fullscreen';
+            } else {
+                fullscreenBtn.textContent = 'Go Fullscreen';
+            }
+        });
+
+        // --- 3. UI ELEMENT INTERACTIONS ---
+        const colorBtn = document.getElementById('color-btn');
+        const rotateLeftBtn = document.getElementById('rotate-left-btn');
+        const rotateRightBtn = document.getElementById('rotate-right-btn');
+
+        // Change object color randomly
+        colorBtn.addEventListener('click', () => {
+            const randomColor = Math.floor(Math.random() * 16777215);
+            cube.material.color.setHex(randomColor);
+        });
+
+        // Manual rotation increments via UI clicks
+        rotateLeftBtn.addEventListener('click', () => { cube.rotation.y -= 0.5; });
+        rotateRightBtn.addEventListener('click', () => { cube.rotation.y += 0.5; });
+
+        // --- 4. RESPONSIVENESS AND ANIMATION LOOP ---
+        // Dynamically resize the 3D scene viewport when browser scales
+        window.addEventListener('resize', () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+
+        // Frame rendering tick loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Subtle continuous baseline rotation
+            cube.rotation.x += 0.005;
+            cube.rotation.y += 0.005;
+
+            renderer.render(scene, camera);
+        }
+
+        // Fire up the rendering cycle
+        animate();
+    </script>
+</body>
+</html>

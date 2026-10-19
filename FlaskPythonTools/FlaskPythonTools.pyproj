@@ -74,12 +74,16 @@
     <Content Include="FlaskPythonTools\static\js\vector.js" />
     <Content Include="FlaskPythonTools\templates\3dvector.html" />
     <Content Include="FlaskPythonTools\templates\audiowavformfrommic.html" />
+    <Content Include="FlaskPythonTools\templates\cube.js" />
     <Content Include="FlaskPythonTools\templates\editaudio.html" />
     <Content Include="FlaskPythonTools\templates\editimage.html" />
+    <Content Include="FlaskPythonTools\templates\jszip.min.js" />
+    <Content Include="FlaskPythonTools\templates\overlayuipage.html" />
     <Content Include="FlaskPythonTools\templates\photocube.html" />
     <Content Include="FlaskPythonTools\templates\rotatebox.html" />
     <Content Include="FlaskPythonTools\templates\rotateface.html" />
     <Content Include="FlaskPythonTools\sample.png" />
+    <Content Include="FlaskPythonTools\templates\three.min.js" />
     <Content Include="requirements.txt" />
     <Content Include="FlaskPythonTools\static\content\bootstrap.css" />
     <Content Include="FlaskPythonTools\static\content\bootstrap.min.css" />
